@@ -1,0 +1,96 @@
+
+
+type Query{
+    mensaje: String
+    pizzas (id: Int):[pizza]
+    ingredientes (id: Int):[ingredient]
+    
+
+}
+
+type pizza {
+    piz_id: Int!,
+    piz_name: String,
+    piz_origin: String,
+    piz_total_calories: Float,
+    piz_ingredients: [ingredient]
+}
+
+type ingredient {
+    ing_id: Int!
+    ing_name: String!
+    ing_calories: Float!
+    pizi_quantity: Int
+}
+
+# Mutations
+type Mutation {
+    createPizza (pizza: input_pizza): pizza
+    update_pizza (pizza:input_update_pizza): pizza
+    delete_pizza (id: Int!): String
+
+    create_ingredient(ingredient: input_ingredient): ingredient
+    delete_ingredient(id: Int!): String
+}
+
+input input_pizza {
+    piz_name: String!
+    piz_origin: String!
+    piz_ingredients_ids: [Int]
+}
+
+input input_ingredient {
+    ing_name: String!
+    ing_calories: Float!
+    pizi_quantity: Int
+}
+
+
+input input_update_pizza {
+    piz_id: Int!
+    piz_name: String!
+    piz_origin: String!
+    piz_ingredients: [input_ingredient_2]
+
+}
+input input_ingredient_2{
+    ing_id: Int!
+    pizi_quantity: Int
+}
+
+
+
+##Crear
+# mutation crear{
+#   createPizza (pizza:
+#   {
+#     piz_name:"4 Queso",
+#     piz_origin: "Spain"
+#   }
+#   ){
+
+# piz_id
+# piz_name
+# piz_origin
+
+#   }
+
+# }
+
+
+##Update
+# mutation actualizar{
+#   update_pizza(pizza:
+#   {
+#     piz_id: 16,
+#     piz_name:"Queso",
+#     piz_origin: "Mexico"
+#   }
+#   ){
+#     piz_id
+#     piz_name
+#     piz_origin
+
+#   }
+
+# }

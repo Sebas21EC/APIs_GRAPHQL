@@ -1,0 +1,85 @@
+
+
+type Query{
+    mensaje: String
+    publications(id: Int):[publication]
+    comments:[comment]
+    authors:[author]
+    reactions:[reaccion]
+    post_comments:[comment]
+    categories:[category]
+
+}
+ type author{
+     aut_id: Int!
+     aut_usuario: String!
+     aut_nombre: String!
+     publications:[publication]
+ }
+
+type category{
+    cat_id: Int!
+    cat_titulo: String!
+    publications:[publication]
+}
+
+type comment{   
+    com_id: Int!
+    pub_id: Int
+    aut_id: Int
+    com_descripcion: String!
+    authors: [author]
+    # reactions:[reaccion]
+    number_likes:Float
+    # number_of_comment_authors:Float
+    
+}
+
+type publication{
+    pub_id: Int!
+    cat_id: Int
+    aut_id: Int
+    pub_titulo: String!
+    pub_descripcion: String!
+    comments:[comment]
+    number_comments:Float
+    post_comments:[comment]
+    number_publications:Float
+    category_publication:[category]
+    author_publication:[author]
+    total_likes_in_post_comments:Float
+
+}
+
+
+type reaccion{
+    rea_id: Int!
+    com_id: Int
+    aut_id: Int
+    rea_like:Boolean!
+
+}
+
+# Mutations
+
+type Mutation{
+    
+     insert_post_comment(comment: input_comment): comment
+     update_post_comment(comment: input_update_comment): comment
+     delete_post_comment(id: Int!): comment
+}
+
+input input_comment{
+    com_descripcion: String!
+    pub_id: Int!
+    aut_id: Int!
+}
+
+input input_update_comment{
+    com_id: Int!
+    com_descripcion: String!
+    pub_id: Int!
+    aut_id: Int!
+    }
+
+

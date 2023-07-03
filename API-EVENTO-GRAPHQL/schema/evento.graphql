@@ -1,0 +1,80 @@
+type Query{
+    message: String
+    events(id:Int): [event]
+    lounges(id:Int): [lounge]
+    participants(id:Int): [participant]
+    participating_events(id:Int): [participating_event]
+
+}
+
+type event{
+    eve_id: Int!
+    sal_id: Int!
+    eve_nombre: String!
+    eve_costo: Float!
+    participants: [participant]
+    participating_event: [participating_event]
+    lounges: [lounge]
+
+}
+
+
+type participant{
+    par_id: Int!
+    par_nombre: String!
+    par_cedula: String!
+    par_correo: String!
+    participating_events: [participating_event]
+}
+
+type lounge{
+    sal_id: Int!
+    sal_nombre: String!
+    sal_descripcion: String!
+    sal_estado: Boolean!
+    events: [event]
+}
+
+type participating_event{
+    eve_id: Int!
+    par_id: Int!
+    evepar_cantidad:Float!
+    participants: [participant]
+    participants_events: [participating_event]
+    events: [event]
+}
+
+
+type Mutation{
+    insert_event(event:input_insert_event): event
+    update_event(event:input_update_event): event
+    delete_event(eve_id: Int): event
+
+    ##Particpante a evento
+    insert_participating_event(participating_event:input_insert_participating_event): participating_event
+    delete_participating_event(participating_event:input_delete_participating_event): participating_event
+}
+
+input input_delete_participating_event{
+    eve_id: Int
+    par_id: Int
+}
+
+input input_insert_participating_event{
+    eve_id: Int
+    par_id: Int
+    evepar_cantidad:Float
+}
+
+input input_insert_event{
+    sal_id: Int
+    eve_nombre: String
+    eve_costo: Float
+}
+
+input input_update_event{
+    eve_id: Int
+    sal_id: Int
+    eve_nombre: String
+    eve_costo: Float
+}
